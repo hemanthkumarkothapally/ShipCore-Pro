@@ -38,7 +38,9 @@
       "minUI5Version": "1.142.1",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.ui.fl": {},
+        "sap.ui.layout": {}
       }
     },
     "contentDensities": {
@@ -51,6 +53,13 @@
         "settings": {
           "bundleName": "com.shipcorepro.shipcorepro.i18n.i18n"
         }
+      },
+      "Subcontracting": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        },
+        "preload": false
       }
     },
     "resources": {
@@ -93,7 +102,7 @@
           "id": "FreightSubcontracting",
           "name": "FreightSubcontracting"
         },
-          "TargetGlobalTrackandTrace": {
+        "TargetGlobalTrackandTrace": {
           "id": "GlobalTrackandTrace",
           "name": "GlobalTrackandTrace"
         }
