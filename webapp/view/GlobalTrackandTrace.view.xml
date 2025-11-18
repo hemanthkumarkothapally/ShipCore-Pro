@@ -1,0 +1,6 @@
+<mvc:View controllerName="com.shipcorepro.shipcorepro.controller.GlobalTrackandTrace"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="GlobalTrackandTracepage" title="{i18n>title}">
+    </Page>
+</mvc:View>

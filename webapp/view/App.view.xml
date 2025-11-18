@@ -1,0 +1,30 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt" controllerName="com.shipcorepro.shipcorepro.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    
+    <tnt:ToolPage  >
+    <tnt:header>
+      <tnt:ToolHeader >
+      <core:Icon src="sap-icon://shipping-status"></core:Icon>
+      <Title text="ShipCore Pro"></Title>
+    <IconTabHeader selectedKey="FreightSubcontracting" select=".onItemSelect" mode="Inline" >
+    <items>
+    <IconTabFilter icon="sap-icon://shipping-status" iconColor="Marker" design="Horizontal" key="FreightSubcontracting"   text="Freight Subcontracting" ></IconTabFilter>
+    <IconTabFilter icon="sap-icon://map" iconColor="Positive" design="Horizontal" key="GlobalTrackandTrace" text="Global Track and Trace"></IconTabFilter>
+    </items>
+    </IconTabHeader>
+    
+    <ToolbarSpacer ></ToolbarSpacer>
+    <Avatar displaySize="XS" initials="VE"></Avatar>
+    </tnt:ToolHeader>
+    </tnt:header>
+    <tnt:subHeader>
+  
+    </tnt:subHeader>
+    <tnt:mainContents>
+  <App id="app" busy="{appState>/busy}"/>
+    </tnt:mainContents>
+    </tnt:ToolPage>
+    
+</mvc:View>

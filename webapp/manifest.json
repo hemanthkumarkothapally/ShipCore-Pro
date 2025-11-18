@@ -1,0 +1,109 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "com.shipcorepro.shipcorepro",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.19.5",
+      "toolsId": "22c3de49-0f34-4fc1-87fb-a896d950818b"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.142.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.shipcorepro.shipcorepro.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "com.shipcorepro.shipcorepro.view",
+        "async": true,
+        "viewPath": "com.shipcorepro.shipcorepro.view"
+      },
+      "routes": [
+        {
+          "name": "FreightSubcontracting",
+          "pattern": ":?query:",
+          "target": [
+            "TargetFreightSubcontracting"
+          ]
+        },
+        {
+          "name": "GlobalTrackandTrace",
+          "pattern": "GlobalTrackandTrace",
+          "target": [
+            "TargetGlobalTrackandTrace"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetFreightSubcontracting": {
+          "id": "FreightSubcontracting",
+          "name": "FreightSubcontracting"
+        },
+          "TargetGlobalTrackandTrace": {
+          "id": "GlobalTrackandTrace",
+          "name": "GlobalTrackandTrace"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.shipcorepro.shipcorepro.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

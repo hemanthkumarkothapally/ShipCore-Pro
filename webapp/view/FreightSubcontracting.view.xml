@@ -1,0 +1,6 @@
+<mvc:View controllerName="com.shipcorepro.shipcorepro.controller.FreightSubcontracting"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="Freight Subcontracting">
+    </Page>
+</mvc:View>
