@@ -1,1 +1,30 @@
 /* Enter your custom styles here */
+
+.gttTable .sapUiTableCell {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.gttTable .sapUiTableHeaderCell {
+    background: #d7d9db;
+    font-weight: 600;
+    font-size: 0.80rem;
+}
+
+/* Carrier tag wrapper */
+.carrierTag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: #F7F7F7;
+    color: #333;
+    gap: 8px;
+}
+.FEDEX { background-color: #7C3AED; }
+.UPS    { background-color: #B7791F; }
+.DHL    { background-color: #C69400; }
+.XPOL   { background-color: #6B7280; }
+
