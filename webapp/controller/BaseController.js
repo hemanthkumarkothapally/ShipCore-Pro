@@ -4,17 +4,17 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "sap/ui/core/Fragment"
-], function (Controller, JSONModel, MessageToast, MessageBox,Fragment) {
+], function (Controller, JSONModel, MessageToast, MessageBox, Fragment) {
     "use strict";
 
     return Controller.extend("com.shipcorepro.shipcorepro.controller.BaseController", {
 
 
-         /**
-         * Convenience method for accessing the controrls
-         * @param {string} sId - ID of the Control
-         * @returns sap.ui.core.Control
-         */
+        /**
+        * Convenience method for accessing the controrls
+        * @param {string} sId - ID of the Control
+        * @returns sap.ui.core.Control
+        */
         // byId: function(sId) {
         //     return this.getView().byId(sId);
         // },
@@ -71,12 +71,37 @@ sap.ui.define([
         onCancelPress: function (oDialogId) {
             this.byId(oDialogId).close();
         },
-        onSavePress:function(sMessage,oDialogId){
+        onSavePress: function (sMessage, oDialogId) {
             this.onCancelPress(oDialogId)
-            MessageBox.success(sMessage +" Saved Sucessfully");
+            MessageBox.success(sMessage + " Saved Sucessfully");
         },
-        onShowpress:function(sMessage){
-              MessageBox.success(sMessage);
+        onShowpress: function (sMessage) {
+            MessageBox.success(sMessage);
+        },
+        backendCall: function (path) {
+            return new Promise((resolve, reject) => {
+
+                const sUrl = `https://shipv2_xcservices.cfapps.eu10-004.hana.ondemand.com/formOperations/${path}`;
+
+                // Make sure token is ONE LINE and inside normal quotes
+                const sToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidmVua2F0IiwiTG9jYXRpb25JZCI6IjEiLCJSb2xlIjoiU3lzdGVtQWRtaW4iLCJpYXQiOjE3NjM0NzE0MjAsImV4cCI6MTc2MzQ3ODYyMH0.D9DS5-KjC05AQTQoTM56arcAL1BaRjtTLsjJ2Qxj0QY";
+
+                fetch(sUrl, {
+                    method: "GET",
+                    headers: {
+                        "X-Token": sToken,
+                        "Content-Type": "application/json"
+                    }
+                })
+                    .then(res => {
+                        if (!res.ok) reject(new Error("HTTP Error: " + res.status));
+                        return res.json();
+                    })
+                    .then(resolve)
+                    .catch(reject);
+
+            });
         }
+
     });
 });

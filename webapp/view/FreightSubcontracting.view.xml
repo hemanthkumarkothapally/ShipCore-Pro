@@ -1,6 +1,484 @@
 <mvc:View controllerName="com.shipcorepro.shipcorepro.controller.FreightSubcontracting"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="Freight Subcontracting">
-    </Page>
+    xmlns:t="sap.ui.table"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:f="sap.f"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:sap.ui.fl="sap.ui.fl"
+    xmlns:sap.ui.dt="sap.ui.dt"
+    xmlns:vm="sap.ui.fl.variants"
+    xmlns:p13n="sap.m.p13n">
+    <f:DynamicPage id="page" preserveHeaderStateOnScroll="true" showFooter="true" title="Freight Subcontracting" fitContent="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox alignItems="Center" renderType="Bare">
+                        <items>
+                            <core:Icon src="sap-icon://shipping-status" size="1.2rem" color="blue" />
+                            <Title text="Freight Subcontracting" level="H6" class="sapUiSmallMarginBegin"/>
+                        </items>
+                    </HBox>
+                </f:heading>
+                <f:actions>
+                    <SearchField width="30%" class="sapUiSmallMargin" />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <t:Table id="persoTable" sort="onSort" columnResize="onColumnResize" columnMove="onColumnMove" rowMode="Auto" ariaLabelledBy="title"  rows="{Subcontracting>/}">
+                <t:extension>
+                    <OverflowToolbar>
+                        <Title id="title" text="Freight Subcontracting"/>
+                        <ToolbarSeparator/>
+                        <vm:VariantManagement id="p13nVm" for="persoTable"/>
+                        <ToolbarSpacer/>
+                        <Button icon="sap-icon://action-settings" press="openPersoDialog"/>
+                    </OverflowToolbar>
+                </t:extension>
+                <t:dependents>
+                    <columnmenu:Menu id="menu" showTableSettingsButton="true" tableSettingsPressed="openPersoDialog">
+                    </columnmenu:Menu>
+                </t:dependents>
+                <t:noData>
+                    <IllustratedMessage enableVerticalResponsiveness="true"/>
+                </t:noData>
+                <t:columns>
+        <t:Column app:p13nKey="Actions_col" headerMenu="menu" resizable="true" width="6rem" autoResizable="true">
+            <Label text="Actions" />
+            <t:template>
+            <HBox alignContent="SpaceBetween" alignItems="Stretch" columnGap="0.5rem">
+                <Button icon="sap-icon://show" type="Emphasized" press="onShowPress"/>
+                <Button icon="sap-icon://lead" type="Success" press="onDollarPress"/>
+            </HBox>
+            </t:template>
+        </t:Column>
+
+        <t:Column app:p13nKey="Id_col" visible="false" sortProperty="id" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Id" />
+            <t:template>
+                <Text text="{Subcontracting>id}"/>
+            </t:template>
+        </t:Column>
+
+        <t:Column app:p13nKey="Document#_col" sortProperty="details/HeaderInfo/DocumentNumber" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Document#" />
+            <t:template>
+                <Text text="{Subcontracting>details/HeaderInfo/DocumentNumber}"/>
+            </t:template>
+        </t:Column>
+
+          <t:Column app:p13nKey="Date_col" sortProperty="details/HeaderInfo/ShipDate" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Date" />
+            <t:template>
+                <Text text="{Subcontracting>details/HeaderInfo/ShipDate}"/>
+            </t:template>
+        </t:Column>
+
+         <t:Column app:p13nKey="Erp_col" sortProperty="details/HeaderInfo/ERP" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Erp" />
+            <t:template>
+                <Text text="{Subcontracting>details/HeaderInfo/ERP}"/>
+            </t:template>
+        </t:Column>
+
+        <t:Column app:p13nKey="Tracking#_col" sortProperty="details/HeaderInfo/XTRACKINGNO" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Tracking#" />
+            <t:template>
+                <Text text="{Subcontracting>details/HeaderInfo/XTRACKINGNO}"/>
+            </t:template>
+        </t:Column>
+
+        <t:Column app:p13nKey="ShipTo_Company_col" sortProperty="details/ShipTo/COMPANY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="ShipTo Company" />
+            <t:template>
+                <Text text="{Subcontracting>details/ShipTo/COMPANY}"/>
+            </t:template>
+        </t:Column>
+
+        <t:Column app:p13nKey="Shipper_Country_col" sortProperty="details/Shipper/COUNTRY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Shipper Country" />
+            <t:template>
+                <Text text="{Subcontracting>details/Shipper/COUNTRY}"/>
+            </t:template>
+        </t:Column>
+
+         <t:Column app:p13nKey="Carrier_col" sortProperty="details/CarrierDetails/Carrier" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Carrier" />
+            <t:template>
+            <GenericTag text="{Subcontracting>details/CarrierDetails/Carrier}"
+								status="Success"
+								press="onGenericTagPress"
+								design="StatusIconHidden"/>
+            </t:template>
+        </t:Column>
+
+        <t:Column app:p13nKey="ServiceName_col" sortProperty="details/CarrierDetails/ServiceName" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Service Name" />
+            <t:template>
+                <Text text="{Subcontracting>details/CarrierDetails/ServiceName}"/>
+            </t:template>
+        </t:Column>
+                <t:Column app:p13nKey="ShippingAccount_col" sortProperty="details/CarrierDetails/ShippingAccount" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Shipping Account" />
+            <t:template>
+                <Text text="{Subcontracting>details/CarrierDetails/ShippingAccount}"/>
+            </t:template>
+        </t:Column>
+         <t:Column app:p13nKey="Status_col2" sortProperty="details/TrackingStatus" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+            <Label text="Tracking Status" />
+            <t:template>
+                <Text text="{Subcontracting>details/TrackingStatus}"/>
+            </t:template>
+        </t:Column>
+
+      <t:Column app:p13nKey="Status_col1" sortProperty="details/status" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Status" />
+    <t:template>
+        <Text text="{Subcontracting>details/status}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="FeederSystem_col" visible="false" sortProperty="details/HeaderInfo/FeederSystem" headerMenu="menu" resizable="true" width="11rem" autoResizable="true">
+    <Label text="Feeder System" />
+    <t:template>
+        <Text text="{Subcontracting>details/HeaderInfo/FeederSystem}"/>
+    </t:template>
+</t:Column>
+
+
+<t:Column app:p13nKey="OrderingParty_col" sortProperty="details/HeaderInfo/orderingPartyLbnId" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Ordering Party" />
+    <t:template>
+        <Text text="{Subcontracting>details/HeaderInfo/orderingPartyLbnId}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="PurchasingParty_col" sortProperty="details/HeaderInfo/purchasingParty" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Purchasing Party" />
+    <t:template>
+        <Text text="{Subcontracting>details/HeaderInfo/purchasingParty}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="BillFromParty_col" sortProperty="details/HeaderInfo/billFromParty" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Bill From Party" />
+    <t:template>
+        <Text text="{Subcontracting>details/HeaderInfo/billFromParty}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SenderSystemId_col" sortProperty="details/HeaderInfo/senderSystemId" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Sender System Id" />
+    <t:template>
+        <Text text="{Subcontracting>details/HeaderInfo/senderSystemId}"/>
+    </t:template>
+</t:Column>
+
+
+<t:Column app:p13nKey="Shipper_Company_col" sortProperty="details/Shipper/COMPANY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper Company" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/COMPANY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Shipper_Contact_col" sortProperty="details/Shipper/CONTACT" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper Contact" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/CONTACT}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Shipper_Address1_col" sortProperty="details/Shipper/ADDRESS_LINE1" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper Address_line1" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/ADDRESS_LINE1}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Shipper_Address2_col" sortProperty="details/Shipper/ADDRESS_LINE2" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper Address_line2" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/ADDRESS_LINE2}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Shipper_City_col" sortProperty="details/Shipper/CITY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper City" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/CITY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Shipper_State_col" sortProperty="details/Shipper/STATE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper State" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/STATE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Shipper_Zipcode_col" sortProperty="details/Shipper/ZIPCODE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper Zipcode" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/ZIPCODE}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="Shipper_Phone_col" sortProperty="details/Shipper/PHONE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper Phone" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/PHONE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Shipper_Email_col" sortProperty="details/Shipper/EMAIL" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipper Email" />
+    <t:template>
+        <Text text="{Subcontracting>details/Shipper/EMAIL}"/>
+    </t:template>
+</t:Column>
+
+
+<t:Column app:p13nKey="ShipTo_Contact_col" sortProperty="details/ShipTo/CONTACT" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo Contact" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/CONTACT}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipTo_Address1_col" sortProperty="details/ShipTo/ADDRESS_LINE1" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo Address_line1" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/ADDRESS_LINE1}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipTo_Address2_col" sortProperty="details/ShipTo/ADDRESS_LINE2" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo Address_line2" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/ADDRESS_LINE2}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipTo_City_col" sortProperty="details/ShipTo/CITY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo City" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/CITY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipTo_State_col" sortProperty="details/ShipTo/STATE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo State" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/STATE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipTo_Zipcode_col" sortProperty="details/ShipTo/ZIPCODE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo Zipcode" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/ZIPCODE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipTo_Country_col" sortProperty="details/ShipTo/COUNTRY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo Country" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/COUNTRY}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="CarrierLbnId_col" sortProperty="details/HeaderInfo/carrierLbnId" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Carrier Lbn Id" />
+    <t:template>
+        <Text text="{Subcontracting>details/HeaderInfo/carrierLbnId}"/>
+    </t:template>
+</t:Column>
+
+
+<t:Column app:p13nKey="ShipTo_Phone_col" sortProperty="details/ShipTo/PHONE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo Phone" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/PHONE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipTo_Email_col" sortProperty="details/ShipTo/EMAIL" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipTo Email" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipTo/EMAIL}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="ShipFrom_Company_col" sortProperty="details/ShipFrom/COMPANY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Company" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/COMPANY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_Contact_col" sortProperty="details/ShipFrom/CONTACT" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Contact" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/CONTACT}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_Address1_col" sortProperty="details/ShipFrom/ADDRESS_LINE1" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Address_line1" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/ADDRESS_LINE1}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_Address2_col" sortProperty="details/ShipFrom/ADDRESS_LINE2" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Address_line2" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/ADDRESS_LINE2}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_City_col" sortProperty="details/ShipFrom/CITY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom City" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/CITY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_State_col" sortProperty="details/ShipFrom/STATE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom State" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/STATE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_Zipcode_col" sortProperty="details/ShipFrom/ZIPCODE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Zipcode" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/ZIPCODE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_Country_col" sortProperty="details/ShipFrom/COUNTRY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Country" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/COUNTRY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_Phone_col" sortProperty="details/ShipFrom/PHONE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Phone" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/PHONE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShipFrom_Email_col" sortProperty="details/ShipFrom/EMAIL" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="ShipFrom Email" />
+    <t:template>
+        <Text text="{Subcontracting>details/ShipFrom/EMAIL}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="SoldTo_Company_col" sortProperty="details/SoldTo/COMPANY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Company" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/COMPANY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_Contact_col" sortProperty="details/SoldTo/CONTACT" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Contact" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/CONTACT}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_Address1_col" sortProperty="details/SoldTo/ADDRESS_LINE1" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Address_line1" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/ADDRESS_LINE1}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_Address2_col" sortProperty="details/SoldTo/ADDRESS_LINE2" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Address_line2" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/ADDRESS_LINE2}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_City_col" sortProperty="details/SoldTo/CITY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo City" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/CITY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_State_col" sortProperty="details/SoldTo/STATE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo State" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/STATE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_Zipcode_col" sortProperty="details/SoldTo/ZIPCODE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Zipcode" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/ZIPCODE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_Country_col" sortProperty="details/SoldTo/COUNTRY" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Country" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/COUNTRY}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_Phone_col" sortProperty="details/SoldTo/PHONE" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Phone" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/PHONE}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="SoldTo_Email_col" sortProperty="details/SoldTo/EMAIL" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="SoldTo Email" />
+    <t:template>
+        <Text text="{Subcontracting>details/SoldTo/EMAIL}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="Items_col" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Items Count" />
+    <t:template>
+        <Text text="{path: 'Subcontracting>details/Items', formatter: '.formatter.countArrayLength'}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Packages_col" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Packages Count" />
+    <t:template>
+        <Text text="{path: 'Subcontracting>details/Packages', formatter: '.formatter.countArrayLength'}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ItemInfo_col" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Int. Item Info" />
+    <t:template>
+        <Text text="{path: 'Subcontracting>details/InternationalDetails/ItemInfo', formatter: '.formatter.countArrayLength'}"/>
+    </t:template>
+</t:Column>
+
+
+<t:Column app:p13nKey="PaymentType_col" sortProperty="details/CarrierDetails/PaymentType" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Payment Type" />
+    <t:template>
+        <Text text="{Subcontracting>details/CarrierDetails/PaymentType}"/>
+    </t:template>
+</t:Column>
+
+<t:Column app:p13nKey="UserId_col" sortProperty="details/CarrierDetails/UserId" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="User Id" />
+    <t:template>
+        <Text text="{Subcontracting>details/CarrierDetails/UserId}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="Password_col" sortProperty="details/CarrierDetails/Password" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Password" />
+    <t:template>
+        <Text text="{Subcontracting>details/CarrierDetails/Password}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="AccessKey_col" sortProperty="details/CarrierDetails/AccessKey" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Access Key" />
+    <t:template>
+        <Text text="{Subcontracting>details/CarrierDetails/AccessKey}"/>
+    </t:template>
+</t:Column>
+
+
+<t:Column app:p13nKey="ShippingCharges_col" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipping Charges" />
+    <t:template>
+        <Text text="{path: 'Subcontracting>details/shippingCharges', formatter: '.formatter.countArrayLength'}"/>
+    </t:template>
+</t:Column>
+<t:Column app:p13nKey="ShippingDocuments_col" headerMenu="menu" resizable="true" width="11rem" autoResizable="true" visible="false">
+    <Label text="Shipping Documents" />
+    <t:template>
+        <Text text="{path: 'Subcontracting>details/shippingDocuments', formatter: '.formatter.countArrayLength'}"/>
+    </t:template>
+</t:Column>
+    </t:columns>
+            </t:Table>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>
