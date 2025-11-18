@@ -1,6 +1,194 @@
-<mvc:View controllerName="com.shipcorepro.shipcorepro.controller.GlobalTrackandTrace"
+<mvc:View xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core" controllerName="com.shipcorepro.shipcorepro.controller.GlobalTrackandTrace"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Page id="GlobalTrackandTracepage" title="{i18n>title}">
+    <Page id="GlobalTrackandTracepage">
+        <headerContent>
+            <core:Icon src="sap-icon://world"></core:Icon>
+            <Title text="Global Track &amp; Trace"></Title>
+            <ToolbarSpacer ></ToolbarSpacer>
+            <SearchField placeholder="Search tracking details...." width="15rem"></SearchField>
+            <Button icon="sap-icon://search" text="Tracking Details"></Button>
+        </headerContent>
+        <content>
+
+                <table:Table id="gttTable" rows="{GlobalTrackandTraceModel>/Fetched}" selectionMode="None" class="gttTable sapUiSmallMargin" width="100%">
+
+                    <!-- Actions -->
+                    <table:columns>
+                        <table:Column label="Action" width="5rem">
+                            <table:template>
+                                <Button icon="sap-icon://show" type="Transparent" press=".onViewTrackingDetails"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Id" width="5rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>id}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="shipper Id" width="9rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipper/shipperLBNID}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="carrier Id" width="9rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/carrier/carrierLBNID}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Date" width="14rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/creationDateTimeUTC}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Order Id" width="10rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/orderId}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Transportation Mode" width="10rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/transportationMode}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Transport Means Standard Code" width="15rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/transportMeans/transportMeansStandardCode}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Tracked Objects" width="9rem">
+                            <table:template>
+                                <Text text="{= ${GlobalTrackandTraceModel>details/shipment/transportMeans/trackedObjects}.length }" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Dangerous Goods Indicator" width="12rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/dangerousGoodsIndicator}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Incoterm" width="7rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/incoterm}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Incoterm Location" width="10rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/incotermLocation}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Weight Value" width="7rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/cargoGrossWeightTotalQuantity/value}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Weight Unit" width="5rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/cargoGrossWeightTotalQuantity/unit}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Volume Value" width="7rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/cargoGrossVolumeTotalQuantity/value}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Volume Unit" width="5rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/cargoGrossVolumeTotalQuantity/unit}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Carrier Reference Document" width="16rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/carrierReferenceDocument/0/value}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Shipping Type" width="10rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/shippingType}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Document Reference" width="16rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/shipment/documentReference/0/value}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Stops" width="7rem">
+                            <table:template>
+                                <Text text="{= ${GlobalTrackandTraceModel>details/shipment/stops}.length }" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Technical Id" width="24rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/technicalId}" maxLines="1" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Tracking#" width="10rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>details/XTRACKINGNO}" />
+                            </table:template>
+                        </table:Column>
+
+                        <!-- <table:Column label="Carrier" width="10rem">
+                <table:template>
+                    <Text text="{GlobalTrackandTraceModel>details/Carrier}" />
+                </table:template>
+            </table:Column> -->
+                        <table:Column label="Carrier" width="8rem">
+                            <table:template>
+                                <HBox class="carrierTag" backgroundDesign="Transparent">
+                                    <Text id="idCarrierTag" text="{path: 'GlobalTrackandTraceModel>details/Carrier', formatter: '.normalizeCarrier'}" />
+                                </HBox>
+                            </table:template>
+                        </table:Column>
+
+
+                        <table:Column label="Status" width="10rem">
+                            <table:template>
+                                <ObjectStatus inverted="true" icon="sap-icon://overlay"  text="{GlobalTrackandTraceModel>details/CarrierStatus}"  state="{path: 'GlobalTrackandTraceModel>details/CarrierStatus', formatter: '.normalizeCarrierStatus'}"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="L B N Status" width="10rem">
+                            <table:template>
+                                <ObjectStatus text="{GlobalTrackandTraceModel>details/LBNStatus}" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Tracking Events" width="10rem">
+                            <table:template>
+                                <Text text="{= ${GlobalTrackandTraceModel>details/trackingEvents}.length }" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column label="Id" width="5rem">
+                            <table:template>
+                                <Text text="{GlobalTrackandTraceModel>id}" />
+                            </table:template>
+                        </table:Column>
+
+                    </table:columns>
+                </table:Table>
+
+        </content>
     </Page>
 </mvc:View>

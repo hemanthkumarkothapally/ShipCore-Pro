@@ -1,0 +1,72 @@
+<core:FragmentDefinition xmlns:cards="sap.f.cards"
+    xmlns:f="sap.f"
+    xmlns:unified="sap.ui.unified"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <Dialog id="TrackingDetailsDialog" contentHeight="400px" contentWidth="700px" showHeader="true">
+        <customHeader>
+            <OverflowToolbar >
+                <core:Icon src="sap-icon://world"></core:Icon>
+                <Title text="Tracking Details"></Title>
+                <Text id="idTrackingCarrierTag" text="{path: 'GlobalTrackandTraceModel>details/Carrier', formatter: '.normalizeCarrier'}" />
+                <ToolbarSpacer ></ToolbarSpacer>
+                <ObjectStatus inverted="true" icon="sap-icon://overlay" text="{GlobalTrackandTraceModel>details/CarrierStatus}" state="{path: 'GlobalTrackandTraceModel>details/CarrierStatus', formatter: '.normalizeCarrierStatus'}"/>
+                <Button icon="sap-icon://decline" press=".onCancelPress"></Button>
+            </OverflowToolbar>
+        </customHeader>
+        <content>
+            <IconTabBar >
+                <items>
+                    <IconTabFilter design="Horizontal" icon="sap-icon://in-progress" text="All Events">
+                    
+                        <Panel width="300px" class="sapUiResponsiveContentPadding" backgroundDesign="Solid">
+                            <headerToolbar>
+                                <Toolbar>
+                                    <core:Icon src="sap-icon://paper-plane" class="sapUiTinyMarginEnd" size="1.5rem" />
+                                    <Title text="Event #{EventNumber}" level="H3" />
+                                    <ToolbarSpacer />
+                                    <Avatar initials="{Initials}" displaySize="XS" displayShape="Circle" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <VBox class="sapUiSmallMarginTop">
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://calendar" class="sapUiTinyMarginEnd" />
+                                        <Text text="Date: " class="sapUiTinyMarginEnd" />
+                                        <Text text="{Date}" class="sapUiMediumMarginEnd" />
+                                    </HBox>
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://history" class="sapUiTinyMarginEnd" />
+                                        <Text text="Time: " class="sapUiTinyMarginEnd" />
+                                        <Text text="{Time}" class="sapUiMediumMarginEnd" />
+                                    </HBox>
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://document" class="sapUiTinyMarginEnd" />
+                                        <Text text="Description: " class="sapUiTinyMarginEnd" />
+                                        <Input value="{Description}" editable="false" width="auto" class="statusInput" />
+                                    </HBox>
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://map" class="sapUiTinyMarginEnd" />
+                                        <Text text="Location: " class="sapUiTinyMarginEnd" />
+                                        <Text text="{Location}" />
+                                    </HBox>
+                                </VBox>
+                            </content>
+                        </Panel>
+                        
+                    </IconTabFilter>
+                    <IconTabFilter design="Horizontal" icon="sap-icon://world" iconColor="Critical" text="GTT Events"></IconTabFilter>
+                    <IconTabFilter design="Horizontal" icon="sap-icon://document-text" text="Proof Of Delivery"></IconTabFilter>
+                    <IconTabFilter design="Horizontal" icon="sap-icon://popup-window" text="Logs"></IconTabFilter>
+                </items>
+            </IconTabBar>
+
+
+
+        </content>
+
+    </Dialog>
+</core:FragmentDefinition>
