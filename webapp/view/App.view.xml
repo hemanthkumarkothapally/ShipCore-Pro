@@ -6,7 +6,7 @@
     <tnt:ToolPage  >
     <tnt:header>
       <tnt:ToolHeader >
-      <core:Icon src="sap-icon://shipping-status"></core:Icon>
+      <core:Icon class="mainiconclass" size="1.5rem" src="sap-icon://shipping-status"></core:Icon>
       <Title text="ShipCore Pro"></Title>
     <IconTabHeader selectedKey="FreightSubcontracting" select=".onItemSelect" mode="Inline" >
     <items>

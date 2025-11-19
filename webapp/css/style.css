@@ -1,5 +1,9 @@
 /* Enter your custom styles here */
-
+.mainiconclass{
+    background-color: #7eb9f4;
+    padding: 6px;
+    border-radius: 50%;
+}
 .gttTable .sapUiTableCell {
     padding: 0.4rem 0.6rem;
     font-size: 0.85rem;
@@ -28,3 +32,61 @@
 .DHL    { background-color: #C69400; }
 .XPOL   { background-color: #6B7280; }
 
+.EventsCard{
+  border: 1px solid #6d6f70;}
+.Iconstyle{
+    background-color: #d7d9db;
+    padding: 6px;
+    border-radius: 50%;
+}
+.statusClass{
+    border: 0.5px solid #6d6f70;
+    background-color: #e9ebee;
+     padding: 2px;
+    border-radius: 5px;
+}
+
+/* Dialog overall */
+.trackingDialog .sapMDialogCont {
+  padding: 1.25rem 1.5rem 1rem 1.5rem;
+}
+
+/* subtitle under title */
+.dlgSubtitle {
+  color: #6b6f76;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+/* inputs row */
+.inputsRow .sapMLabel {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.inputsRow .sapMInput {
+  width: 100%;
+}
+
+/* center button spacing */
+.buttonRow {
+  margin: 1rem 0 1rem 0;
+}
+
+/* info box */
+.infoBox {
+  margin-top: 1rem;
+  border-radius: 8px;
+  background-color: #eef6ff;
+  padding: 1rem;
+  border: 1px solid #d7e8ff;
+}
+.infoTitle {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.infoBullets > .sapMText {
+  margin-left: 0.6rem;
+  margin-top: 0.25rem;
+  display: block;
+  font-size: 0.95rem;
+}

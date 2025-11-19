@@ -1,4 +1,6 @@
-<core:FragmentDefinition xmlns:cards="sap.f.cards"
+<core:FragmentDefinition xmlns:vbm="sap.ui.vbm"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:cards="sap.f.cards"
     xmlns:f="sap.f"
     xmlns:unified="sap.ui.unified"
     xmlns="sap.m"
@@ -6,14 +8,19 @@
     xmlns:l="sap.ui.layout"
     xmlns:html="http://www.w3.org/1999/xhtml">
 
-    <Dialog id="TrackingDetailsDialog" contentHeight="400px" contentWidth="700px" showHeader="true">
+    <Dialog id="TrackingDetailsDialog" contentHeight="450px" contentWidth="800px" showHeader="true" horizontalScrolling="false" verticalScrolling="false">
         <customHeader>
             <OverflowToolbar >
                 <core:Icon src="sap-icon://world"></core:Icon>
                 <Title text="Tracking Details"></Title>
-                <Text id="idTrackingCarrierTag" text="{path: 'GlobalTrackandTraceModel>details/Carrier', formatter: '.normalizeCarrier'}" />
+                <GenericTag text="{GlobalTrackandTraceModel>/selecteddata/Carrier}"
+                                status="{
+        path: 'GlobalTrackandTraceModel>/selecteddata/Carrier',
+        formatter: '.formatCarrierStatus'
+    }"
+                                design="StatusIconHidden"/>
                 <ToolbarSpacer ></ToolbarSpacer>
-                <ObjectStatus inverted="true" icon="sap-icon://overlay" text="{GlobalTrackandTraceModel>details/CarrierStatus}" state="{path: 'GlobalTrackandTraceModel>details/CarrierStatus', formatter: '.normalizeCarrierStatus'}"/>
+                <ObjectStatus inverted="true" text="{GlobalTrackandTraceModel>/selecteddata/CarrierStatus}" state="{path: 'GlobalTrackandTraceModel>/selecteddata/CarrierStatus', formatter: '.normalizeCarrierStatus'}"/>
                 <Button icon="sap-icon://decline" press=".onCancelPress"></Button>
             </OverflowToolbar>
         </customHeader>
@@ -21,46 +28,161 @@
             <IconTabBar >
                 <items>
                     <IconTabFilter design="Horizontal" icon="sap-icon://in-progress" text="All Events">
-                    
-                        <Panel width="300px" class="sapUiResponsiveContentPadding" backgroundDesign="Solid">
-                            <headerToolbar>
-                                <Toolbar>
-                                    <core:Icon src="sap-icon://paper-plane" class="sapUiTinyMarginEnd" size="1.5rem" />
-                                    <Title text="Event #{EventNumber}" level="H3" />
-                                    <ToolbarSpacer />
-                                    <Avatar initials="{Initials}" displaySize="XS" displayShape="Circle" />
-                                </Toolbar>
-                            </headerToolbar>
-                            <content>
-                                <VBox class="sapUiSmallMarginTop">
-                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                        <core:Icon src="sap-icon://calendar" class="sapUiTinyMarginEnd" />
-                                        <Text text="Date: " class="sapUiTinyMarginEnd" />
-                                        <Text text="{Date}" class="sapUiMediumMarginEnd" />
-                                    </HBox>
-                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                        <core:Icon src="sap-icon://history" class="sapUiTinyMarginEnd" />
-                                        <Text text="Time: " class="sapUiTinyMarginEnd" />
-                                        <Text text="{Time}" class="sapUiMediumMarginEnd" />
-                                    </HBox>
-                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                        <core:Icon src="sap-icon://document" class="sapUiTinyMarginEnd" />
-                                        <Text text="Description: " class="sapUiTinyMarginEnd" />
-                                        <Input value="{Description}" editable="false" width="auto" class="statusInput" />
-                                    </HBox>
-                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                        <core:Icon src="sap-icon://map" class="sapUiTinyMarginEnd" />
-                                        <Text text="Location: " class="sapUiTinyMarginEnd" />
-                                        <Text text="{Location}" />
-                                    </HBox>
+                        <HBox >
+                            <ScrollContainer height="380px" width="350px" vertical="true">
+                                <Title text="{= 'Tracking Events: ' + ${GlobalTrackandTraceModel>/SelectedTrakingEvents}.length }" class="sapUiTinyMarginBottom" />
+                                <VBox items="{GlobalTrackandTraceModel>/SelectedTrakingEvents}">
+
+                                    <Panel width="330px" class=" EventsCard sapUiResponsiveContentPadding sapUiTinyMarginBottom" backgroundDesign="Solid">
+                                        <headerToolbar>
+                                            <Toolbar>
+                                                <core:Icon src="sap-icon://paper-plane" class="sapUiTinyMarginEnd Iconstyle" size="1.5rem" />
+<Title text="{
+    parts: [
+        'GlobalTrackandTraceModel>/SelectedTrakingEvents',
+        'GlobalTrackandTraceModel>'
+    ],
+    formatter: '.getEventNumber'
+}" level="H3" />                                                <ToolbarSpacer />
+                                                <Avatar initials="{GlobalTrackandTraceModel>Carrier_Tracking_Status_Code}" displaySize="XS" displayShape="Circle" />
+                                            </Toolbar>
+                                        </headerToolbar>
+                                        <content>
+                                            <VBox class="sapUiTinyMarginTop">
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://calendar" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Date: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>DateTime}" class="sapUiMediumMarginEnd" />
+                                                </HBox>
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://history" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Time: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>DateTime}" class="sapUiMediumMarginEnd" />
+                                                </HBox>
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://document" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Description: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>Carrier_Tracking_Status_Description}" class="statusClass" />
+                                                </HBox>
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://map" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Location: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>Location/City}" />
+                                                </HBox>
+                                            </VBox>
+                                        </content>
+                                    </Panel>
                                 </VBox>
-                            </content>
-                        </Panel>
-                        
+                            </ScrollContainer>
+                            <VBox >
+                                <Title class="sapUiTinyMarginBottom" text="Route Map"></Title>
+                                <vbm:AnalyticMap >
+                                </vbm:AnalyticMap>
+                            </VBox>
+                        </HBox>
+
                     </IconTabFilter>
-                    <IconTabFilter design="Horizontal" icon="sap-icon://world" iconColor="Critical" text="GTT Events"></IconTabFilter>
-                    <IconTabFilter design="Horizontal" icon="sap-icon://document-text" text="Proof Of Delivery"></IconTabFilter>
-                    <IconTabFilter design="Horizontal" icon="sap-icon://popup-window" text="Logs"></IconTabFilter>
+                    <IconTabFilter design="Horizontal" icon="sap-icon://world" iconColor="Critical" text="GTT Events">
+                        <HBox >
+                            <ScrollContainer height="380px" width="350px" vertical="true">
+                                <VBox items="{GlobalTrackandTraceModel>/SelectedTrakingEvents}">
+
+                                    <Panel width="330px" class="EventsCard sapUiResponsiveContentPadding sapUiTinyMarginBottom" backgroundDesign="Solid" visible="{GlobalTrackandTraceModel>GTT_Relevent}">
+                                        <headerToolbar>
+                                            <Toolbar>
+                                                <core:Icon src="sap-icon://paper-plane" class="sapUiTinyMarginEnd Iconstyle" size="1.5rem" />
+                                                <Title text="Event #" level="H3" />
+                                                <ToolbarSpacer />
+                                                <Avatar initials="{GlobalTrackandTraceModel>Carrier_Tracking_Status_Code}" displaySize="XS" displayShape="Circle" />
+                                            </Toolbar>
+                                        </headerToolbar>
+                                        <content>
+                                            <VBox class="sapUiTinyMarginTop">
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://calendar" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Date: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>DateTime}" class="sapUiMediumMarginEnd" />
+                                                </HBox>
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://history" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Time: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>DateTime}" class="sapUiMediumMarginEnd" />
+                                                </HBox>
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://document" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Description: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>Carrier_Tracking_Status_Description}" class="statusClass" />
+                                                </HBox>
+                                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                    <core:Icon src="sap-icon://map" class="sapUiTinyMarginEnd" />
+                                                    <Text text="Location: " class="sapUiTinyMarginEnd" />
+                                                    <Text text="{GlobalTrackandTraceModel>Location/City}" />
+                                                </HBox>
+                                            </VBox>
+                                        </content>
+                                    </Panel>
+                                </VBox>
+                            </ScrollContainer>
+                            <VBox >
+                                                            <Title class="sapUiTinyMarginBottom" text="Route Map"></Title>
+
+                            
+                            <vbm:AnalyticMap >
+                            </vbm:AnalyticMap>
+                            </VBox>
+                        </HBox>
+                    </IconTabFilter>
+                    <IconTabFilter design="Horizontal" icon="sap-icon://document-text" text="Proof Of Delivery">
+                        <VBox width="100%" alignItems="Center" height="100%" justifyContent="Center" backgroundDesign="Solid">
+                            <core:Icon src="sap-icon://document-text" size="2rem"></core:Icon>
+                            <Text text="No proof of delivery available"></Text>
+                            <Label text="POD documents will appear here when available"></Label>
+                        </VBox>
+                    </IconTabFilter>
+                    <IconTabFilter design="Horizontal" icon="sap-icon://popup-window" text="Logs">
+                        <VBox >
+                            <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                <HBox alignItems="Center">
+                                    <core:Icon class="Iconstyle sapUiTinyMargin" size="1.5rem" src="sap-icon://popup-window"></core:Icon>
+                                    <VBox >
+                                        <Title text="SAP Tracking Logs"></Title>
+                                        <Text text="Detailed system logs from SAP Track API"></Text>
+                                    </VBox>
+                                </HBox>
+
+                                <Button text="Load Logs" press=".onLoadLogsPress" visible="{= !${GlobalTrackandTraceModel>/logs}.length }"></Button>
+                            </HBox>
+                            <ScrollContainer vertical="true" height="300px">
+                                <Table headerText="SAP Logs Data" items="{GlobalTrackandTraceModel>/logs}" visible="{= ${GlobalTrackandTraceModel>/logs}.length > 0 }">
+                                    <columns>
+                                        <Column >
+                                            <Label text="Date Time"></Label>
+                                        </Column>
+                                        <Column >
+                                            <Label text="Event Type"></Label>
+                                        </Column>
+                                        <Column >
+                                            <Label text="End Point URL"></Label>
+                                        </Column>
+                                        <Column >
+                                            <Label text="Action"></Label>
+                                        </Column>
+                                    </columns>
+                                    <ColumnListItem >
+                                        <cells>
+                                            <Text text="{GlobalTrackandTraceModel>details/dateTime}"></Text>
+                                            <ObjectStatus text="{GlobalTrackandTraceModel>details/EventType}"></ObjectStatus>
+                                            <Link text="{GlobalTrackandTraceModel>details/endpointURL}" href="{GlobalTrackandTraceModel>details/endpointURL}"></Link>
+                                            <VBox >
+                                                <Button text="View Request"></Button>
+                                                <Button text="View Response"></Button>
+                                            </VBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </Table>
+                            </ScrollContainer>
+                        </VBox>
+                    </IconTabFilter>
                 </items>
             </IconTabBar>
 

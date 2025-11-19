@@ -4,11 +4,11 @@
     xmlns="sap.m">
     <Page id="GlobalTrackandTracepage">
         <headerContent>
-            <core:Icon src="sap-icon://world"></core:Icon>
+            <core:Icon class="sapUiSmallMarginBegin" src="sap-icon://world"></core:Icon>
             <Title text="Global Track &amp; Trace"></Title>
             <ToolbarSpacer ></ToolbarSpacer>
             <SearchField placeholder="Search tracking details...." width="15rem"></SearchField>
-            <Button icon="sap-icon://search" text="Tracking Details"></Button>
+            <Button icon="sap-icon://search" text="Tracking Details" press=".onTrackingDetailsFilterpress"></Button>
         </headerContent>
         <content>
 
@@ -114,7 +114,7 @@
 
                         <table:Column label="Carrier Reference Document" width="16rem">
                             <table:template>
-                                <Text text="{GlobalTrackandTraceModel>details/shipment/carrierReferenceDocument/0/value}" />
+                                <Text text="{ path: 'GlobalTrackandTraceModel>details/shipment/carrierReferenceDocument', formatter: '.formatCarrierRefs' }" />
                             </table:template>
                         </table:Column>
 
@@ -126,7 +126,7 @@
 
                         <table:Column label="Document Reference" width="16rem">
                             <table:template>
-                                <Text text="{GlobalTrackandTraceModel>details/shipment/documentReference/0/value}" />
+                                <Text text="{ path: 'GlobalTrackandTraceModel>details/shipment/documentReference', formatter: '.formatCarrierRefs' }" />
                             </table:template>
                         </table:Column>
 
@@ -155,16 +155,20 @@
             </table:Column> -->
                         <table:Column label="Carrier" width="8rem">
                             <table:template>
-                                <HBox class="carrierTag" backgroundDesign="Transparent">
-                                    <Text id="idCarrierTag" text="{path: 'GlobalTrackandTraceModel>details/Carrier', formatter: '.normalizeCarrier'}" />
-                                </HBox>
+                               
+                                <GenericTag text="{GlobalTrackandTraceModel>details/Carrier}"
+                                status="{
+        path: 'GlobalTrackandTraceModel>details/Carrier',
+        formatter: '.formatCarrierStatus'
+    }"
+                                design="StatusIconHidden"/>
                             </table:template>
                         </table:Column>
 
 
                         <table:Column label="Status" width="10rem">
                             <table:template>
-                                <ObjectStatus inverted="true" icon="sap-icon://overlay"  text="{GlobalTrackandTraceModel>details/CarrierStatus}"  state="{path: 'GlobalTrackandTraceModel>details/CarrierStatus', formatter: '.normalizeCarrierStatus'}"/>
+                                <ObjectStatus inverted="true"  text="{GlobalTrackandTraceModel>details/CarrierStatus}"  state="{path: 'GlobalTrackandTraceModel>details/CarrierStatus', formatter: '.normalizeCarrierStatus'}"/>
                             </table:template>
                         </table:Column>
 
