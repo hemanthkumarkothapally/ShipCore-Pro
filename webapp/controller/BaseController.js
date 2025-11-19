@@ -84,7 +84,7 @@ sap.ui.define([
                 const sUrl = `https://shipv2_xcservices.cfapps.eu10-004.hana.ondemand.com/formOperations/${path}`;
 
                 // Make sure token is ONE LINE and inside normal quotes
-                const sToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidmVua2F0IiwiTG9jYXRpb25JZCI6IjEiLCJSb2xlIjoiU3lzdGVtQWRtaW4iLCJpYXQiOjE3NjM0NzE0MjAsImV4cCI6MTc2MzQ3ODYyMH0.D9DS5-KjC05AQTQoTM56arcAL1BaRjtTLsjJ2Qxj0QY";
+                const sToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidmVua2F0IiwiTG9jYXRpb25JZCI6IjEiLCJSb2xlIjoiU3lzdGVtQWRtaW4iLCJpYXQiOjE3NjM1NDc0ODEsImV4cCI6MTc2MzU1NDY4MX0.VA7o-f6SmH5hoM_wbiuOqkQAkfbQ22PqzohrxhhcO3Y";
 
                 fetch(sUrl, {
                     method: "GET",
