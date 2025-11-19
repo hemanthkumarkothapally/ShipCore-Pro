@@ -1,4 +1,4 @@
-sap.ui.define([
+gitsap.ui.define([
     "sap/ui/core/mvc/Controller",
     "com/shipcorepro/shipcorepro/controller/BaseController"
 
