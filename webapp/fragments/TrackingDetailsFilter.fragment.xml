@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns:cards="sap.f.cards"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Dialog id="trackingDialog" draggable="false" contentWidth="700px" contentHeight="450px" class="trackingDialog sapUiResponsiveContentPadding">
+    <cards:Header title="Tracking Details"></cards:Header>
+
+    <content>
+      <VBox class="dlgContent" width="100%" renderType="Bare">
+        <!-- subtitle -->
+        <Text text="Enter tracking parameters to fetch details from the tracking API" class="dlgSubtitle" />
+
+        <!-- inputs row -->
+        <HBox class="inputsRow" justifyContent="SpaceBetween" fitContainer="true">
+          <VBox width="48%">
+            <Label text="Parameter 1" labelFor="param1"/>
+            <Input id="param1" placeholder="Enter first parameter" />
+          </VBox>
+
+          <VBox width="48%">
+            <Label text="Parameter 2" labelFor="param2"/>
+            <Input id="param2" placeholder="Enter second parameter" />
+          </VBox>
+        </HBox>
+
+        <!-- center button -->
+        <HBox justifyContent="Center" class="buttonRow">
+          <Button icon="sap-icon://search" text="Fetch Tracking Details" press=".onFetchTrackingDetails" type="Emphasized" />
+        </HBox>
+
+        <!-- info box -->
+        <VBox class="infoBox" width="100%">
+          <Text text="How to use:" class="infoTitle" />
+          <VBox class="infoBullets">
+            <Text text="• Enter both Parameter 1 and Parameter 2" />
+            <Text text="• Click &quot;Fetch Tracking Details&quot; to make the API call" />
+            <Text text="• The response will be displayed below" />
+            <Text text="• Example: 10020004863 / 1Z165YY60398238863" />
+          </VBox>
+        </VBox>
+
+      </VBox>
+    </content>
+
+    <beginButton>
+      <Button text="Close" press=".onCloseTrackingDialog" />
+    </beginButton>
+  </Dialog>
+</core:FragmentDefinition>
